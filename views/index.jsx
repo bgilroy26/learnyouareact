@@ -12,6 +12,7 @@ var TodoBox = React.createClass({
 });
 
 var TodoList = React.createClass({
+        
     render: function() {
         return (
                 <div className="todoList">
@@ -27,9 +28,19 @@ var TodoList = React.createClass({
 });
 
 var Todo = React.createClass({
+    propTypes: {
+        title: React.PropTypes.string.isRequired
+    },
+    getInitialState: function() {
+        return { checked : false };
+    },
+    handleChange: function(event) {
+        this.setState({checked: !this.state.checked});
+    },
     render: function() {
         return ( 
             <tr>
+                <td style={{ border: "1px solid black" }}><input type="checkbox" checked={ this.state.checked } onChange={ this.handleChange } /></td>
                 <td style={{ border: "1px solid black" }}>{ this.props.title }</td>
                 <td style={{ border: "1px solid black" }}>{ this.props.children }</td>
             </tr>
@@ -39,7 +50,7 @@ var Todo = React.createClass({
 
 
 var TodoForm = React.createClass({
-    render: function() {
+        render: function() {
         return (
                 <div className= "todoForm">
                     I am a TodoForm.
